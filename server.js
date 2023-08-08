@@ -9,7 +9,15 @@ server.get("/", async (req, res) => {
   const totalPages = 1;
   const produtosLista = [];
 
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    ignoreHTTPSErrors: true,
+    args: [`--window-size=1920,1080`],
+    defaultViewport: {
+      width: 1920,
+      height: 1080,
+    },
+  });
 
   for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
     const page = await browser.newPage();
